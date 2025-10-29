@@ -14,7 +14,6 @@ function createWrapper() {
     },
   })
 
-  // eslint-disable-next-line react/display-name
   return ({ children }: { children: ReactNode }) => {
     return QueryClientProvider({ client: queryClient, children })
   }

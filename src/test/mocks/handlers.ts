@@ -60,16 +60,14 @@ const mockBorrowings: Borrowing[] = [
 
 export const handlers = [
   // Auth endpoints
-  http.post(`${API_URL}/auth/sign_up`, async ({ request }) => {
-    const body = await request.json()
+  http.post(`${API_URL}/auth/sign_up`, async () => {
     return HttpResponse.json({
       message: 'Signed up successfully',
       user: mockUser,
     }, { status: 201 })
   }),
 
-  http.post(`${API_URL}/auth/sign_in`, async ({ request }) => {
-    const body = await request.json()
+  http.post(`${API_URL}/auth/sign_in`, async () => {
     return HttpResponse.json(
       {
         message: 'Logged in successfully',
@@ -122,14 +120,14 @@ export const handlers = [
   }),
 
   http.post(`${API_URL}/books`, async ({ request }) => {
-    const body = await request.json()
+    const body = (await request.json()) as { book: Partial<Book> }
     const newBook: Book = {
       id: mockBooks.length + 1,
-      ...(body as any).book,
+      ...body.book,
       borrowings_count: 0,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-    }
+    } as Book
     return HttpResponse.json(
       {
         book: newBook,
@@ -144,15 +142,15 @@ export const handlers = [
     if (!book) {
       return HttpResponse.json({ error: 'Book not found' }, { status: 404 })
     }
-    const body = await request.json()
-    const updatedBook = { ...book, ...(body as any).book }
+    const body = (await request.json()) as { book: Partial<Book> }
+    const updatedBook = { ...book, ...body.book }
     return HttpResponse.json({
       book: updatedBook,
       message: 'Book updated successfully',
     })
   }),
 
-  http.delete(`${API_URL}/books/:id`, ({ params }) => {
+  http.delete(`${API_URL}/books/:id`, () => {
     return HttpResponse.json({
       message: 'Book deleted successfully',
     })
@@ -184,19 +182,24 @@ export const handlers = [
   }),
 
   http.post(`${API_URL}/borrowings`, async ({ request }) => {
-    const body = await request.json()
+    const body = (await request.json()) as { borrowing: { book_id: number } }
     const newBorrowing: Borrowing = {
       id: mockBorrowings.length + 1,
       borrowed_at: new Date().toISOString(),
       due_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
       returned_at: null,
       'overdue?': false,
-      book: mockBooks[0].id === (body as any).borrowing.book_id ? {
+      book: mockBooks[0].id === body.borrowing.book_id ? {
         id: mockBooks[0].id,
         title: mockBooks[0].title,
         author: mockBooks[0].author,
         isbn: mockBooks[0].isbn,
-      } : mockBooks[1],
+      } : {
+        id: mockBooks[1].id,
+        title: mockBooks[1].title,
+        author: mockBooks[1].author,
+        isbn: mockBooks[1].isbn,
+      },
       user: {
         id: mockUser.id,
         email: mockUser.email,
