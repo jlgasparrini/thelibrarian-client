@@ -15,5 +15,8 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: './src/test/setup.ts',
+    env: {
+      VITE_API_URL: 'http://localhost:3000/api/v1',
+    },
   },
 })
