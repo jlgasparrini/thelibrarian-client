@@ -301,7 +301,7 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Allow librarians to create, edit, and delete books.
 
-- [ ] Create `<BookForm>` component:
+- [x] Create `<BookForm>` component:
   - Title input (required)
   - Author input (required)
   - Genre select (required)
@@ -311,35 +311,35 @@ Each step is self-contained and test-driven: implement → test → refactor →
   - Form validation with Zod
   - Submit button
   - Cancel button
-- [ ] Create `<CreateBookPage>` component:
+- [x] Create `<CreateBookPage>` component:
   - Page title
   - BookForm with empty initial values
   - Success redirect to books list
-- [ ] Create `<EditBookPage>` component:
+- [x] Create `<EditBookPage>` component:
   - Load existing book data
   - BookForm with pre-filled values
   - Success redirect to book detail
-- [ ] Create `<DeleteButton>` component:
+- [x] Create `<DeleteButton>` component:
   - Confirmation dialog
   - Delete mutation
   - Success redirect to books list
-- [ ] Implement mutations:
+- [x] Implement mutations:
   - Create book
   - Update book
   - Delete book
   - Cache invalidation
   - Optimistic updates
-- [ ] Add validation:
+- [x] Add validation:
   - ISBN format (10 or 13 digits)
   - Available copies <= total copies
   - All required fields
-- [ ] Write tests:
+- [x] Write tests:
   - Form validation works
   - Create book succeeds
   - Edit book succeeds
   - Delete book succeeds
   - Validation errors shown
-- [ ] ✅ Book management complete
+- [x] ✅ Book management complete
 
 ---
 
