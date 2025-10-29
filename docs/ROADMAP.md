@@ -267,33 +267,33 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Display member's borrowing summary and quick actions.
 
-- [ ] Create `<MemberDashboard>` component:
+- [x] Create `<MemberDashboard>` component:
   - Statistics cards
   - Active borrowings list
   - Books due soon
   - Quick actions
-- [ ] Create `<StatCard>` component:
+- [x] Create `<StatCard>` component:
   - Icon
   - Label
   - Value
   - Color coding (red for overdue, yellow for due soon)
-- [ ] Create `<QuickActions>` component:
+- [x] Create `<QuickActions>` component:
   - Browse books button
   - View all borrowings button
   - View history button
-- [ ] Display metrics:
+- [x] Display metrics:
   - Active borrowings count
   - Overdue borrowings count
   - Books due soon count
-- [ ] Display active borrowings:
+- [x] Display active borrowings:
   - Show next 5 borrowings
   - Link to view all
-- [ ] Add auto-refresh option
-- [ ] Write tests:
+- [x] Add auto-refresh option
+- [x] Write tests:
   - Dashboard renders correct data
   - Stats cards show correct values
   - Quick actions navigate correctly
-- [ ] ✅ Member dashboard complete
+- [x] ✅ Member dashboard complete
 
 ---
 
