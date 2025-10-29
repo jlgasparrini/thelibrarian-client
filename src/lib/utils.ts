@@ -62,3 +62,17 @@ export function getStatusText(borrowing: { due_date: string; returned_at: string
   if (isDueSoon(borrowing.due_date, borrowing.returned_at)) return 'Due Soon'
   return 'Active'
 }
+
+export function getStatusBadge(borrowing: { due_date: string; returned_at: string | null }): {
+  text: string
+  className: string
+} {
+  const text = getStatusText(borrowing)
+  const baseClasses = 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium'
+  const colorClasses = getStatusBadgeColor(borrowing)
+  
+  return {
+    text,
+    className: `${baseClasses} ${colorClasses}`,
+  }
+}

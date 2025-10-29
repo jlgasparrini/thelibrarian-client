@@ -9,6 +9,8 @@ import { LoginPage } from './pages/auth/LoginPage'
 import { SignupPage } from './pages/auth/SignupPage'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { BooksPage } from './pages/books/BooksPage'
+import { MyBorrowingsPage } from './pages/borrowings/MyBorrowingsPage'
+import { MyHistoryPage } from './pages/borrowings/MyHistoryPage'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -48,6 +50,26 @@ function App() {
                   <ProtectedRoute>
                     <MainLayout>
                       <BooksPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-borrowings"
+                element={
+                  <ProtectedRoute requireRole="member">
+                    <MainLayout>
+                      <MyBorrowingsPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-history"
+                element={
+                  <ProtectedRoute requireRole="member">
+                    <MainLayout>
+                      <MyHistoryPage />
                     </MainLayout>
                   </ProtectedRoute>
                 }
