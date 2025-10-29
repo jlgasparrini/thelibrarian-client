@@ -91,41 +91,41 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Implement complete authentication system with JWT.
 
-- [ ] Create auth store with Zustand:
+- [x] Create auth store with Zustand:
   - State: `user`, `token`, `isAuthenticated`, `isLoading`
   - Actions: `login()`, `logout()`, `setUser()`, `checkAuth()`
-- [ ] Create auth hooks:
+- [x] Create auth hooks:
   - `useAuth()` - access auth state and actions
   - `useRequireAuth()` - redirect if not authenticated
   - `useRequireRole(role)` - redirect if wrong role
-- [ ] Create `<AuthProvider>` component:
+- [x] Create `<AuthProvider>` component:
   - Check for existing token on mount
   - Validate token with API
   - Set up axios interceptors
-- [ ] Create `<ProtectedRoute>` component:
+- [x] Create `<ProtectedRoute>` component:
   - Redirect to login if not authenticated
   - Show loading while checking auth
-- [ ] Create Login page (`/login`):
+- [x] Create Login page (`/login`):
   - Email and password form
   - Form validation with Zod
   - Error handling
   - Redirect to dashboard on success
-- [ ] Create Signup page (`/signup`):
+- [x] Create Signup page (`/signup`):
   - Email, password, password confirmation
   - Role selection (member only for signup)
   - Form validation
   - Redirect to login on success
-- [ ] Create logout functionality:
+- [x] Create logout functionality:
   - Clear token from storage
   - Clear user from state
   - Redirect to login
   - Call API sign out endpoint
-- [ ] Write tests:
+- [x] Write tests:
   - Auth store actions
   - Login form submission
   - Signup form submission
   - Protected route redirects
-- [ ] ✅ Complete auth flow working (login → dashboard → logout)
+- [x] ✅ Complete auth flow working (login → dashboard → logout)
 
 ---
 
