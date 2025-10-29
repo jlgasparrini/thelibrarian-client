@@ -8,6 +8,7 @@ import { MainLayout } from './layouts/MainLayout'
 import { LoginPage } from './pages/auth/LoginPage'
 import { SignupPage } from './pages/auth/SignupPage'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
+import { BooksPage } from './pages/books/BooksPage'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -37,6 +38,16 @@ function App() {
                   <ProtectedRoute>
                     <MainLayout>
                       <DashboardPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/books"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <BooksPage />
                     </MainLayout>
                   </ProtectedRoute>
                 }

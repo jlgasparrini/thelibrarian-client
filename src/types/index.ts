@@ -138,7 +138,7 @@ export interface BooksQueryParams {
   query?: string
   genre?: string
   available?: boolean
-  sort?: 'title' | 'author' | 'created_at'
+  sort?: string
   page?: number
   per_page?: number
 }
