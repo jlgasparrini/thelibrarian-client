@@ -10,28 +10,28 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Initialize the React project with all necessary tools and configurations.
 
-- [ ] Create Vite + React + TypeScript project
-- [ ] Install core dependencies:
+- [x] Create Vite + React + TypeScript project
+- [x] Install core dependencies:
   - `react-router-dom` - Routing
   - `@tanstack/react-query` - API state management
   - `axios` - HTTP client
   - `zustand` - Global state management
   - `react-hook-form` - Form handling
   - `zod` - Schema validation
-- [ ] Install UI dependencies:
+- [x] Install UI dependencies:
   - `tailwindcss` - Styling
   - `lucide-react` - Icons
   - `sonner` - Toast notifications
-- [ ] Install dev dependencies:
+- [x] Install dev dependencies:
   - `vitest` - Testing framework
   - `@testing-library/react` - Component testing
   - `@testing-library/jest-dom` - DOM matchers
   - `@testing-library/user-event` - User interaction testing
   - `msw` - API mocking
-- [ ] Configure Tailwind CSS
-- [ ] Configure path aliases (`@/` for src)
-- [ ] Configure Vitest
-- [ ] Create folder structure:
+- [x] Configure Tailwind CSS
+- [x] Configure path aliases (`@/` for src)
+- [x] Configure Vitest
+- [x] Create folder structure:
   ```
   src/
   ├── api/           # API client and endpoints
@@ -45,9 +45,14 @@ Each step is self-contained and test-driven: implement → test → refactor →
   ├── types/         # TypeScript types
   └── test/          # Test utilities and mocks
   ```
-- [ ] Create `.env.example` with API URL
-- [ ] Setup ESLint and Prettier
-- [ ] ✅ Run `npm run dev` → app loads successfully
+- [x] Create `.env.example` with API URL
+- [x] Setup ESLint and Prettier
+- [x] Setup CI/CD:
+  - GitHub Actions
+  - Run tests on PR
+  - Run linting
+  - Build check
+- [x] ✅ Run `npm run dev` → app loads successfully
 
 ---
 
@@ -55,30 +60,30 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Set up API communication layer with type safety.
 
-- [ ] Create TypeScript types for API models:
+- [x] Create TypeScript types for API models:
   - `User` (id, email, role, created_at)
   - `Book` (id, title, author, genre, isbn, total_copies, available_copies, borrowings_count)
   - `Borrowing` (id, book, user, borrowed_at, due_date, returned_at, overdue)
   - `Dashboard` (librarian and member variants)
   - `PaginationMeta` (page, pages, count, per_page)
-- [ ] Create Axios instance with:
+- [x] Create Axios instance with:
   - Base URL from environment
   - Request interceptor for JWT token
   - Response interceptor for error handling
   - Token refresh logic (optional)
-- [ ] Create API service modules:
+- [x] Create API service modules:
   - `authApi.ts` - sign up, sign in, sign out, validate token
   - `booksApi.ts` - list, get, create, update, delete
   - `borrowingsApi.ts` - list, create, return, overdue
   - `dashboardApi.ts` - get dashboard data
-- [ ] Create React Query hooks:
+- [x] Create React Query hooks:
   - `useBooks()` - fetch books with filters
   - `useBook(id)` - fetch single book
   - `useBorrowings()` - fetch borrowings
   - `useDashboard()` - fetch dashboard data
-- [ ] Write unit tests for API functions
-- [ ] Setup MSW for API mocking in tests
-- [ ] ✅ Test API calls with mock data
+- [x] Write unit tests for API functions
+- [x] Setup MSW for API mocking in tests
+- [x] ✅ Test API calls with mock data
 
 ---
 
@@ -498,11 +503,6 @@ Each step is self-contained and test-driven: implement → test → refactor →
 - [ ] Add test coverage reporting:
   - Vitest coverage
   - Target: >80% coverage
-- [ ] Setup CI/CD:
-  - GitHub Actions
-  - Run tests on PR
-  - Run linting
-  - Build check
 - [ ] Code quality checks:
   - ESLint rules
   - Prettier formatting
