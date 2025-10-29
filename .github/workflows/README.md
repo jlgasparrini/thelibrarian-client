@@ -23,7 +23,7 @@ The CI workflow (`.github/workflows/ci.yml`) runs on:
 
 ### Node.js Version
 
-All jobs use Node.js 20 (LTS) with npm caching for faster builds.
+All jobs use Node.js 24.11.0 (from `.node-version` file) with npm caching for faster builds.
 
 ### Status Badge
 
