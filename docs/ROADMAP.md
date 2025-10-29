@@ -133,34 +133,34 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Create main layout with responsive navigation.
 
-- [ ] Create `<Layout>` component:
+- [x] Create `<Layout>` component:
   - Header with navigation
   - Main content area
   - Footer (optional)
-- [ ] Create `<Navbar>` component:
+- [x] Create `<Navbar>` component:
   - Logo/brand
   - Navigation links (role-based)
   - User profile dropdown
   - Sign out button
   - Mobile hamburger menu
-- [ ] Create navigation structure:
+- [x] Create navigation structure:
   - Member: Dashboard, Books, My Borrowings, My History
   - Librarian: Dashboard, Books, All Borrowings, Manage Books
-- [ ] Create `<Sidebar>` component (optional):
+- [x] Create `<Sidebar>` component (optional):
   - Collapsible side navigation
   - Active page indicator
-- [ ] Add route configuration:
+- [x] Add route configuration:
   - Public routes: `/`, `/login`, `/signup`
   - Protected routes: `/dashboard`, `/books`, etc.
   - Role-specific routes
-- [ ] Create `<LoadingSpinner>` component
-- [ ] Create `<ErrorBoundary>` component
-- [ ] Create toast notification system (Sonner)
-- [ ] Write tests:
+- [x] Create `<LoadingSpinner>` component
+- [x] Create `<ErrorBoundary>` component
+- [x] Create toast notification system (Sonner)
+- [x] Write tests:
   - Navigation renders correct links for each role
   - Mobile menu toggles
   - Active page highlighting
-- [ ] ✅ Navigation works for both roles
+- [x] ✅ Navigation works for both roles
 
 ---
 
