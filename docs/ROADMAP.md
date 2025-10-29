@@ -168,47 +168,47 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Display books with search, filter, and pagination.
 
-- [ ] Create `<BooksPage>` component:
+- [x] Create `<BooksPage>` component:
   - Search bar
   - Filter panel
   - Books grid/list
   - Pagination controls
-- [ ] Create `<SearchBar>` component:
+- [x] Create `<SearchBar>` component:
   - Debounced input
   - Clear button
   - Search icon
-- [ ] Create `<FilterPanel>` component:
+- [x] Create `<FilterPanel>` component:
   - Genre dropdown/select
   - Available checkbox
   - Sort dropdown
   - Clear filters button
-- [ ] Create `<BookCard>` component:
+- [x] Create `<BookCard>` component:
   - Book cover placeholder
   - Title, author, genre
   - Availability badge
   - View details button
   - Borrow button (if member and available)
-- [ ] Create `<Pagination>` component:
+- [x] Create `<Pagination>` component:
   - Previous/Next buttons
   - Page numbers
   - Items per page selector
-- [ ] Implement URL state management:
+- [x] Implement URL state management:
   - Search, filters, page in URL params
   - Shareable URLs
   - Browser back/forward support
-- [ ] Create `<BookDetailPage>` component:
+- [x] Create `<BookDetailPage>` component:
   - Full book information
   - Availability status
   - Borrow button (if member)
   - Edit/Delete buttons (if librarian)
-- [ ] Add loading states
-- [ ] Add empty states (no books found)
-- [ ] Write tests:
+- [x] Add loading states
+- [x] Add empty states (no books found)
+- [x] Write tests:
   - Books render correctly
   - Search updates results
   - Filters work
   - Pagination works
-- [ ] ✅ Books list fully functional with search and filters
+- [x] ✅ Books list fully functional with search and filters
 
 ---
 
