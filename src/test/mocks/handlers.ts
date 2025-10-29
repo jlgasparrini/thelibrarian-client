@@ -1,7 +1,8 @@
 import { http, HttpResponse } from 'msw'
 import type { Book, Borrowing, User } from '@/types'
 
-const API_URL = 'http://localhost:3000/api/v1'
+// Match the base URL from the API client
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'
 
 // Mock data
 const mockUser: User = {
