@@ -216,50 +216,50 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Allow members to borrow and return books.
 
-- [ ] Create `<BorrowButton>` component:
+- [x] Create `<BorrowButton>` component:
   - Disabled if not available
   - Disabled if already borrowed by user
   - Confirmation dialog
   - Optimistic update
   - Success/error toast
-- [ ] Create `<ReturnButton>` component:
+- [x] Create `<ReturnButton>` component:
   - Only for books borrowed by current user
   - Confirmation dialog
   - Optimistic update
   - Success/error toast
-- [ ] Create `<MyBorrowingsPage>` component:
+- [x] Create `<MyBorrowingsPage>` component:
   - List of active borrowings
   - Due date display
   - Days until due
   - Overdue highlighting
   - Return button
   - Filter by status (active/overdue)
-- [ ] Create `<MyHistoryPage>` component:
+- [x] Create `<MyHistoryPage>` component:
   - List of returned borrowings
   - Borrowed and returned dates
   - Pagination
-- [ ] Create `<BorrowingCard>` component:
+- [x] Create `<BorrowingCard>` component:
   - Book information
   - Borrow date
   - Due date
   - Status badge (active, overdue, returned)
   - Return button (if active)
-- [ ] Implement borrow mutation:
+- [x] Implement borrow mutation:
   - API call
   - Optimistic update
   - Cache invalidation
   - Error handling
-- [ ] Implement return mutation:
+- [x] Implement return mutation:
   - API call
   - Optimistic update
   - Cache invalidation
   - Error handling
-- [ ] Write tests:
+- [x] Write tests:
   - Borrow button works
   - Return button works
   - Overdue books highlighted
   - Can't borrow same book twice
-- [ ] ✅ Complete borrowing flow working
+- [x] ✅ Complete borrowing flow working
 
 ---
 
