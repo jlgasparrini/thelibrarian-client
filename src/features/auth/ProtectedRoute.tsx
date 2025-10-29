@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
+import { LoadingPage } from '@/components/ui/LoadingSpinner'
 import type { ReactNode } from 'react'
 
 interface ProtectedRouteProps {
@@ -13,11 +14,7 @@ export function ProtectedRoute({ children, requireRole }: ProtectedRouteProps) {
 
   // Show loading state while checking authentication
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    )
+    return <LoadingPage />
   }
 
   // Redirect to login if not authenticated
