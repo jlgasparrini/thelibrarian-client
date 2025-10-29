@@ -9,6 +9,9 @@ import { LoginPage } from './pages/auth/LoginPage'
 import { SignupPage } from './pages/auth/SignupPage'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { BooksPage } from './pages/books/BooksPage'
+import { BookDetailPage } from './pages/books/BookDetailPage'
+import { CreateBookPage } from './pages/books/CreateBookPage'
+import { EditBookPage } from './pages/books/EditBookPage'
 import { MyBorrowingsPage } from './pages/borrowings/MyBorrowingsPage'
 import { MyHistoryPage } from './pages/borrowings/MyHistoryPage'
 
@@ -50,6 +53,36 @@ function App() {
                   <ProtectedRoute>
                     <MainLayout>
                       <BooksPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/books/new"
+                element={
+                  <ProtectedRoute requireRole="librarian">
+                    <MainLayout>
+                      <CreateBookPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/books/:id"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <BookDetailPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/books/:id/edit"
+                element={
+                  <ProtectedRoute requireRole="librarian">
+                    <MainLayout>
+                      <EditBookPage />
                     </MainLayout>
                   </ProtectedRoute>
                 }
