@@ -391,12 +391,12 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Allow librarians to view and manage all borrowings.
 
-- [ ] Create `<AllBorrowingsPage>` component:
+- [x] Create `<AllBorrowingsPage>` component:
   - Filter tabs (all, active, returned, overdue)
   - Search bar (by member or book)
   - Borrowings table
   - Pagination
-- [ ] Create `<BorrowingTable>` component:
+- [x] Create `<BorrowingTable>` component:
   - Member email column
   - Book title column
   - Borrowed date column
@@ -404,31 +404,31 @@ Each step is self-contained and test-driven: implement → test → refactor →
   - Status column (badge)
   - Actions column (return button if active)
   - Sortable columns
-- [ ] Create `<StatusBadge>` component:
+- [x] Create `<StatusBadge>` component:
   - Color-coded by status
   - Active (blue)
   - Returned (green)
   - Overdue (red)
-- [ ] Create `<OverdueBorrowingsPage>` component:
+- [x] Create `<OverdueBorrowingsPage>` component:
   - Dedicated page for overdue items
   - Sorted by most overdue first
   - Member contact information
   - Return button
-- [ ] Implement return action for librarians:
+- [x] Implement return action for librarians:
   - Can return any book
   - Confirmation dialog
   - Success toast
-- [ ] Add filters:
+- [x] Add filters:
   - By status
   - By date range
   - By member
   - By book
-- [ ] Write tests:
+- [x] Write tests:
   - Borrowings table renders
   - Filters work
   - Return action works
   - Status badges show correct colors
-- [ ] ✅ Borrowing management complete
+- [x] ✅ Borrowing management complete
 
 ---
 
