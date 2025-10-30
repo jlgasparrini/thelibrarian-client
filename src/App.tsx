@@ -15,6 +15,7 @@ import { EditBookPage } from './pages/books/EditBookPage'
 import { MyBorrowingsPage } from './pages/borrowings/MyBorrowingsPage'
 import { MyHistoryPage } from './pages/borrowings/MyHistoryPage'
 import { AllBorrowingsPage } from './pages/borrowings/AllBorrowingsPage'
+import { OverdueBorrowingsPage } from './pages/borrowings/OverdueBorrowingsPage'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -114,6 +115,16 @@ function App() {
                   <ProtectedRoute requireRole="librarian">
                     <MainLayout>
                       <AllBorrowingsPage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/borrowings/overdue"
+                element={
+                  <ProtectedRoute requireRole="librarian">
+                    <MainLayout>
+                      <OverdueBorrowingsPage />
                     </MainLayout>
                   </ProtectedRoute>
                 }

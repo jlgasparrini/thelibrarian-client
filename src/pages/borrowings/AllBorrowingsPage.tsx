@@ -4,10 +4,12 @@ import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { Pagination } from '@/components/ui/Pagination'
 import { toast } from 'sonner'
-import { Search, X } from 'lucide-react'
+import { Search, X, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
 import { formatDate, getStatusBadgeColor, getStatusText, getDaysUntilDue } from '@/lib/utils'
 
 type StatusFilter = 'all' | 'active' | 'returned' | 'overdue'
+type SortField = 'member' | 'book' | 'borrowed' | 'due' | 'status'
+type SortDirection = 'asc' | 'desc'
 
 export function AllBorrowingsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -16,6 +18,8 @@ export function AllBorrowingsPage() {
   const statusFilter = (searchParams.get('status') || 'all') as StatusFilter
   const page = Number(searchParams.get('page')) || 1
   const perPage = Number(searchParams.get('per_page')) || 25
+  const sortField = (searchParams.get('sort') || 'borrowed') as SortField
+  const sortDirection = (searchParams.get('dir') || 'desc') as SortDirection
 
   const { data, isLoading, isError, error } = useBorrowings()
   const returnMutation = useReturnBook()
@@ -60,6 +64,19 @@ export function AllBorrowingsPage() {
     const params = new URLSearchParams(searchParams)
     params.set('per_page', String(newPerPage))
     params.set('page', '1')
+    setSearchParams(params)
+  }
+
+  const handleSort = (field: SortField) => {
+    const params = new URLSearchParams(searchParams)
+    if (sortField === field) {
+      // Toggle direction
+      params.set('dir', sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      // New field, default to asc
+      params.set('sort', field)
+      params.set('dir', 'asc')
+    }
     setSearchParams(params)
   }
 
@@ -108,6 +125,35 @@ export function AllBorrowingsPage() {
         b.book.author.toLowerCase().includes(searchLower)
     )
   }
+
+  // Apply sorting
+  filteredBorrowings = [...filteredBorrowings].sort((a, b) => {
+    let comparison = 0
+    
+    switch (sortField) {
+      case 'member':
+        comparison = a.user.email.localeCompare(b.user.email)
+        break
+      case 'book':
+        comparison = a.book.title.localeCompare(b.book.title)
+        break
+      case 'borrowed':
+        comparison = new Date(a.borrowed_at).getTime() - new Date(b.borrowed_at).getTime()
+        break
+      case 'due':
+        comparison = new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
+        break
+      case 'status': {
+        const statusOrder = { returned: 0, active: 1, overdue: 2 }
+        const aStatus = a.returned_at ? 'returned' : a['overdue?'] ? 'overdue' : 'active'
+        const bStatus = b.returned_at ? 'returned' : b['overdue?'] ? 'overdue' : 'active'
+        comparison = statusOrder[aStatus] - statusOrder[bStatus]
+        break
+      }
+    }
+    
+    return sortDirection === 'asc' ? comparison : -comparison
+  })
 
   // Pagination
   const totalItems = filteredBorrowings.length
@@ -211,19 +257,69 @@ export function AllBorrowingsPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      Member
+                      <button
+                        onClick={() => handleSort('member')}
+                        className="flex items-center gap-1 hover:text-gray-700"
+                      >
+                        Member
+                        {sortField === 'member' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpDown className="h-4 w-4 opacity-50" />
+                        )}
+                      </button>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      Book
+                      <button
+                        onClick={() => handleSort('book')}
+                        className="flex items-center gap-1 hover:text-gray-700"
+                      >
+                        Book
+                        {sortField === 'book' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpDown className="h-4 w-4 opacity-50" />
+                        )}
+                      </button>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      Borrowed
+                      <button
+                        onClick={() => handleSort('borrowed')}
+                        className="flex items-center gap-1 hover:text-gray-700"
+                      >
+                        Borrowed
+                        {sortField === 'borrowed' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpDown className="h-4 w-4 opacity-50" />
+                        )}
+                      </button>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      Due Date
+                      <button
+                        onClick={() => handleSort('due')}
+                        className="flex items-center gap-1 hover:text-gray-700"
+                      >
+                        Due Date
+                        {sortField === 'due' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpDown className="h-4 w-4 opacity-50" />
+                        )}
+                      </button>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      Status
+                      <button
+                        onClick={() => handleSort('status')}
+                        className="flex items-center gap-1 hover:text-gray-700"
+                      >
+                        Status
+                        {sortField === 'status' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpDown className="h-4 w-4 opacity-50" />
+                        )}
+                      </button>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                       Actions
