@@ -347,12 +347,12 @@ Each step is self-contained and test-driven: implement → test → refactor →
 
 **Goal:** Display library-wide statistics and insights.
 
-- [ ] Create `<LibrarianDashboard>` component:
+- [x] Create `<LibrarianDashboard>` component:
   - Statistics grid
   - Recent borrowings table
   - Popular books list
   - Overdue borrowings list
-- [ ] Create `<LibraryStats>` component:
+- [x] Create `<LibraryStats>` component:
   - Total books
   - Total available books
   - Total borrowed books
@@ -360,30 +360,30 @@ Each step is self-contained and test-driven: implement → test → refactor →
   - Overdue books
   - Total members
   - Members with overdue books
-- [ ] Create `<RecentActivity>` component:
+- [x] Create `<RecentActivity>` component:
   - Table of recent borrowings
   - Member email
   - Book title
   - Borrowed date
   - Link to borrowing details
-- [ ] Create `<PopularBooks>` component:
+- [x] Create `<PopularBooks>` component:
   - List of top 10 books by borrow count
   - Book title and author
   - Borrow count
   - Link to book details
-- [ ] Create `<OverdueList>` component:
+- [x] Create `<OverdueList>` component:
   - Table of overdue borrowings
   - Member email
   - Book title
   - Due date
   - Days overdue
   - Return button
-- [ ] Add auto-refresh option (every 30 seconds)
-- [ ] Write tests:
+- [x] Add auto-refresh option (every 30 seconds)
+- [x] Write tests:
   - Dashboard renders all sections
   - Stats show correct values
   - Tables display data correctly
-- [ ] ✅ Librarian dashboard complete
+- [x] ✅ Librarian dashboard complete
 
 ---
 
