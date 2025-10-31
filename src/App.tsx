@@ -16,6 +16,8 @@ import { MyBorrowingsPage } from './pages/borrowings/MyBorrowingsPage'
 import { MyHistoryPage } from './pages/borrowings/MyHistoryPage'
 import { AllBorrowingsPage } from './pages/borrowings/AllBorrowingsPage'
 import { OverdueBorrowingsPage } from './pages/borrowings/OverdueBorrowingsPage'
+import { NotFoundPage } from './pages/errors/NotFoundPage'
+import { ForbiddenPage } from './pages/errors/ForbiddenPage'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -130,9 +132,12 @@ function App() {
                 }
               />
 
+              {/* Error pages */}
+              <Route path="/forbidden" element={<ForbiddenPage />} />
+              
               {/* Default redirect */}
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>

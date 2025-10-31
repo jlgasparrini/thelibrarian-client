@@ -5,6 +5,7 @@ import {
   isOverdue,
   isDueSoon,
   getStatusText,
+  getErrorMessage,
 } from './utils'
 
 describe('utils', () => {
@@ -114,6 +115,51 @@ describe('utils', () => {
         returned_at: null,
       }
       expect(getStatusText(borrowing)).toBe('Active')
+    })
+  })
+
+  describe('getErrorMessage', () => {
+    it('extracts error message from API response with errors array', () => {
+      const error = {
+        response: {
+          data: {
+            errors: ['Book is already borrowed by this user']
+          }
+        }
+      }
+      expect(getErrorMessage(error)).toBe('Book is already borrowed by this user')
+    })
+
+    it('extracts first error from multiple errors', () => {
+      const error = {
+        response: {
+          data: {
+            errors: ['First error', 'Second error']
+          }
+        }
+      }
+      expect(getErrorMessage(error)).toBe('First error')
+    })
+
+    it('returns fallback message for non-API errors', () => {
+      const error = new Error('Network error')
+      expect(getErrorMessage(error)).toBe('An error occurred. Please try again.')
+    })
+
+    it('returns fallback message for null/undefined', () => {
+      expect(getErrorMessage(null)).toBe('An error occurred. Please try again.')
+      expect(getErrorMessage(undefined)).toBe('An error occurred. Please try again.')
+    })
+
+    it('returns fallback message when errors array is empty', () => {
+      const error = {
+        response: {
+          data: {
+            errors: []
+          }
+        }
+      }
+      expect(getErrorMessage(error)).toBe('An error occurred')
     })
   })
 })

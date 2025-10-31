@@ -6,6 +6,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { toast } from 'sonner'
 import { ArrowLeft, Edit, Trash2, BookOpen } from 'lucide-react'
 import { useState } from 'react'
+import { getErrorMessage } from '@/lib/utils'
 
 export function BookDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -26,8 +27,8 @@ export function BookDetailPage() {
       await deleteMutation.mutateAsync(Number(id))
       toast.success('Book deleted successfully!')
       navigate('/books')
-    } catch {
-      toast.error('Failed to delete book')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 
@@ -37,8 +38,8 @@ export function BookDetailPage() {
     try {
       await borrowMutation.mutateAsync({ book_id: Number(id) })
       toast.success('Book borrowed successfully!')
-    } catch {
-      toast.error('Failed to borrow book')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 

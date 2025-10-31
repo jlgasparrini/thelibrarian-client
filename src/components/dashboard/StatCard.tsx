@@ -22,19 +22,18 @@ export function StatCard({ icon: Icon, label, value, variant = 'default' }: Stat
     success: 'bg-green-100',
   }
 
+  const iconBgClass = `flex-shrink-0 rounded-md p-3 ${iconBgStyles[variant]}`
+  const iconColorClass = `h-6 w-6 ${variantStyles[variant]}`
+
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow">
-      <div className="p-5">
-        <div className="flex items-center">
-          <div className={`flex-shrink-0 rounded-md p-3 ${iconBgStyles[variant]}`}>
-            <Icon className={`h-6 w-6 ${variantStyles[variant]}`} />
-          </div>
-          <div className="ml-5 w-0 flex-1">
-            <dl>
-              <dt className="truncate text-sm font-medium text-gray-500">{label}</dt>
-              <dd className="mt-1 text-3xl font-semibold text-gray-900">{value}</dd>
-            </dl>
-          </div>
+    <div className="rounded-lg bg-white p-6 shadow">
+      <div className="flex items-center">
+        <div className={iconBgClass}>
+          <Icon className={iconColorClass} />
+        </div>
+        <div className="ml-4">
+          <p className="text-sm font-medium text-gray-600">{label}</p>
+          <p className="text-2xl font-semibold text-gray-900">{value}</p>
         </div>
       </div>
     </div>

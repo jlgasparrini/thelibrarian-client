@@ -76,3 +76,18 @@ export function getStatusBadge(borrowing: { due_date: string; returned_at: strin
     className: `${baseClasses} ${colorClasses}`,
   }
 }
+
+export function getErrorMessage(error: unknown): string {
+  // Check if it's an Axios error with response data
+  if (error && typeof error === 'object' && 'response' in error) {
+    const axiosError = error as { response?: { data?: { errors?: string[] } } }
+    
+    // Check for errors array in response data
+    if (axiosError.response?.data?.errors && Array.isArray(axiosError.response.data.errors)) {
+      return axiosError.response.data.errors[0] || 'An error occurred'
+    }
+  }
+  
+  // Fallback to generic error message
+  return 'An error occurred. Please try again.'
+}
