@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
 import { toast } from 'sonner'
-import { AlertCircle } from 'lucide-react'
+import { AlertCircle, ArrowLeft } from 'lucide-react'
 import { getErrorMessage } from '@/lib/utils'
 import { formatDate, getDaysUntilDue } from '@/lib/utils'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 export function OverdueBorrowingsPage() {
   const { data, isLoading, isError, error } = useBorrowings()
