@@ -16,7 +16,6 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<BookFormData>({
     resolver: zodResolver(bookSchema),
     defaultValues: initialData
@@ -37,8 +36,6 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
           available_copies: 1,
         },
   })
-
-  const totalCopies = watch('total_copies')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -148,31 +145,6 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
         {errors.total_copies && (
           <p className="mt-1 text-sm text-red-600">{errors.total_copies.message}</p>
         )}
-      </div>
-
-      {/* Available Copies */}
-      <div>
-        <label htmlFor="available_copies" className="block text-sm font-medium text-gray-700">
-          Available Copies <span className="text-red-600">*</span>
-        </label>
-        <input
-          {...register('available_copies', { valueAsNumber: true })}
-          type="number"
-          id="available_copies"
-          min="0"
-          max={totalCopies}
-          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
-            errors.available_copies
-              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
-          }`}
-        />
-        {errors.available_copies && (
-          <p className="mt-1 text-sm text-red-600">{errors.available_copies.message}</p>
-        )}
-        <p className="mt-1 text-sm text-gray-500">
-          Must be between 0 and {totalCopies} (total copies)
-        </p>
       </div>
 
       {/* Actions */}

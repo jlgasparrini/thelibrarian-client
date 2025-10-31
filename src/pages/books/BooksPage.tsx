@@ -31,13 +31,22 @@ export function BooksPage() {
   const { data, isLoading, isError, error } = useBooks({
     query: query || undefined,
     genre: genre || undefined,
-    available,
     sort,
     page,
     per_page: perPage,
   })
 
   const borrowMutation = useBorrowBook()
+
+  // Client-side filtering for availability based on available_copies
+  const filteredBooks = data?.books.filter((book) => {
+    if (available === true) {
+      return book.available_copies > 0
+    } else if (available === false) {
+      return book.available_copies === 0
+    }
+    return true // Show all if available is undefined
+  }) || []
 
   // Update URL params
   const updateParams = (updates: Record<string, string | number | boolean | undefined>) => {
@@ -152,7 +161,7 @@ export function BooksPage() {
         <div className="lg:col-span-3">
           {isLoading ? (
             <BooksGridSkeleton count={perPage > 12 ? 12 : perPage} />
-          ) : data?.books.length === 0 ? (
+          ) : filteredBooks.length === 0 ? (
             <EmptyState
               icon={BookOpen}
               title="No books found"
@@ -171,7 +180,7 @@ export function BooksPage() {
           ) : (
             <>
               <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                {data?.books.map((book) => (
+                {filteredBooks.map((book) => (
                   <BookCard
                     key={book.id}
                     book={book}

@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
+import { useBorrowings } from '@/hooks/useBorrowings'
 import { BorrowingCard } from '@/components/borrowings/BorrowingCard'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { BorrowingCardSkeleton } from '@/components/ui/BorrowingCardSkeleton'
-import { toast } from 'sonner'
 import { BookOpen } from 'lucide-react'
-import { getErrorMessage } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 
 type TabType = 'active' | 'all'
@@ -13,20 +11,6 @@ type TabType = 'active' | 'all'
 export function MyBorrowingsPage() {
   const [activeTab, setActiveTab] = useState<TabType>('active')
   const { data, isLoading, isError, error } = useBorrowings()
-  const returnMutation = useReturnBook()
-
-  const handleReturn = async (borrowingId: number) => {
-    if (!confirm('Are you sure you want to return this book?')) {
-      return
-    }
-
-    try {
-      await returnMutation.mutateAsync(borrowingId)
-      toast.success('Book returned successfully!')
-    } catch (error) {
-      toast.error(getErrorMessage(error))
-    }
-  }
 
   if (isError) {
     return (
@@ -121,8 +105,7 @@ export function MyBorrowingsPage() {
             <BorrowingCard
               key={borrowing.id}
               borrowing={borrowing}
-              onReturn={handleReturn}
-              showReturnButton={!borrowing.returned_at}
+              showReturnButton={false}
             />
           ))}
         </div>
