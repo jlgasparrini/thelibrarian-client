@@ -60,6 +60,13 @@ Built with modern React patterns, TypeScript for type safety, and comprehensive 
 | 📱 **Responsive Design** | Mobile-first, works on all devices |
 
 ---
+## 🌐 Try It Out (Live)
+
+The frontend is deployed and ready to use:
+
+- **Live Demo:** [thelibrarian-client.vercel.app](https://thelibrarian-client.vercel.app)
+
+---
 
 ## 🚀 Quick Start
 
@@ -118,34 +125,6 @@ This frontend requires the [Library Management API](https://github.com/jlgasparr
 # .env
 VITE_API_URL=http://localhost:3000  # Backend API URL
 ```
-
----
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Production deployment
-vercel --prod
-```
-
----
-
-## 📈 Performance
-
-### Optimization Techniques
-
-- ✅ **Code Splitting** - Lazy load routes and heavy components
-- ✅ **Bundle Optimization** - Tree shaking, minification
-- ✅ **Caching** - React Query cache, service worker
-- ✅ **Debouncing** - Search input, API calls
 
 ---
 
