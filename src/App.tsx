@@ -13,7 +13,6 @@ import { BookDetailPage } from './pages/books/BookDetailPage'
 import { CreateBookPage } from './pages/books/CreateBookPage'
 import { EditBookPage } from './pages/books/EditBookPage'
 import { MyBorrowingsPage } from './pages/borrowings/MyBorrowingsPage'
-import { MyHistoryPage } from './pages/borrowings/MyHistoryPage'
 import { AllBorrowingsPage } from './pages/borrowings/AllBorrowingsPage'
 import { OverdueBorrowingsPage } from './pages/borrowings/OverdueBorrowingsPage'
 import { NotFoundPage } from './pages/errors/NotFoundPage'
@@ -97,16 +96,6 @@ function App() {
                   <ProtectedRoute requireRole="member">
                     <MainLayout>
                       <MyBorrowingsPage />
-                    </MainLayout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/my-history"
-                element={
-                  <ProtectedRoute requireRole="member">
-                    <MainLayout>
-                      <MyHistoryPage />
                     </MainLayout>
                   </ProtectedRoute>
                 }

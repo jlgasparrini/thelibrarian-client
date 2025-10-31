@@ -29,7 +29,6 @@ export function Navbar() {
     { to: '/dashboard', label: 'Dashboard' },
     { to: '/books', label: 'Books' },
     { to: '/my-borrowings', label: 'My Borrowings' },
-    { to: '/my-history', label: 'My History' },
   ]
 
   const librarianLinks = [

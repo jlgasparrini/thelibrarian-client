@@ -1,6 +1,6 @@
 # 📚 Frontend User Stories - Library Management System
 
-## 1. 🔐 Authentication & Authorization
+## 🔐 Authentication & Authorization
 
 ### As a Visitor
 - [ ] I want to see a landing page explaining the library system
@@ -20,15 +20,9 @@
 - Token sent in Authorization header for all API requests
 - Clear visual feedback for auth state (loading, error, success)
 
-**Pages/Components:**
-- `/login` - Sign in page
-- `/signup` - Registration page
-- `<ProtectedRoute>` - Route wrapper for authenticated pages
-- `<AuthProvider>` - Context for auth state
-
 ---
 
-## 2. 📚 Book Browsing & Search
+## 📚 Book Browsing & Search
 
 ### As any Authenticated User
 - [ ] I want to see a list of all books with pagination
@@ -49,17 +43,9 @@
 - Loading states while fetching data
 - Empty state when no books match filters
 
-**Pages/Components:**
-- `/books` - Books list page
-- `/books/:id` - Book detail page
-- `<BookCard>` - Individual book display
-- `<SearchBar>` - Search input component
-- `<FilterPanel>` - Genre and availability filters
-- `<Pagination>` - Pagination controls
-
 ---
 
-## 3. 📖 Borrowing Books (Member Role)
+## 📖 Borrowing Books (Member Role)
 
 ### As a Member
 - [ ] I want to borrow an available book with one click
@@ -80,16 +66,9 @@
 - Books due soon (within 3 days) highlighted in yellow
 - Return button only on books borrowed by current user
 
-**Pages/Components:**
-- `/my-borrowings` - My active borrowings
-- `/my-history` - My borrowing history
-- `<BorrowButton>` - Borrow action button
-- `<ReturnButton>` - Return action button
-- `<BorrowingCard>` - Display borrowing with status
-
 ---
 
-## 4. 📊 Member Dashboard
+## 📊 Member Dashboard
 
 ### As a Member
 - [ ] I want to see a dashboard with my borrowing summary
@@ -105,14 +84,9 @@
 - Quick actions to view details or return books
 - Responsive cards layout
 
-**Pages/Components:**
-- `/dashboard` - Member dashboard (default after login)
-- `<StatCard>` - Metric display card
-- `<QuickActions>` - Action buttons panel
-
 ---
 
-## 5. 📚 Book Management (Librarian Role)
+## 📚 Book Management (Librarian Role)
 
 ### As a Librarian
 - [ ] I want to see all books with management actions
@@ -130,15 +104,9 @@
 - Form shows existing data when editing
 - Clear error messages for validation failures
 
-**Pages/Components:**
-- `/books/new` - Create book form
-- `/books/:id/edit` - Edit book form
-- `<BookForm>` - Reusable form component
-- `<DeleteButton>` - Delete with confirmation
-
 ---
 
-## 6. 📊 Librarian Dashboard
+## 📊 Librarian Dashboard
 
 ### As a Librarian
 - [ ] I want to see library-wide statistics
@@ -160,16 +128,9 @@
 - Click on items to see details
 - Auto-refresh option for real-time updates
 
-**Pages/Components:**
-- `/dashboard` - Librarian dashboard (default after login)
-- `<LibraryStats>` - Statistics grid
-- `<RecentActivity>` - Recent borrowings table
-- `<PopularBooks>` - Top borrowed books
-- `<OverdueList>` - Overdue borrowings table
-
 ---
 
-## 7. 📋 Borrowing Management (Librarian Role)
+## 📋 Borrowing Management (Librarian Role)
 
 ### As a Librarian
 - [ ] I want to see all borrowings (not just mine)
@@ -187,16 +148,9 @@
 - Search by member email or book title
 - Pagination for large lists
 
-**Pages/Components:**
-- `/borrowings` - All borrowings list (librarian only)
-- `/borrowings/overdue` - Overdue borrowings
-- `<BorrowingTable>` - Borrowings data table
-- `<StatusBadge>` - Status indicator
-- `<ReturnButton>` - Return action (librarian can return any book)
-
 ---
 
-## 8. 👥 User Management (Librarian Role - Optional)
+## 👥 User Management (Librarian Role - Optional)
 
 ### As a Librarian
 - [ ] I want to see a list of all members
@@ -209,89 +163,3 @@
 - Click member to see their borrowing history
 - Highlight members with overdue books
 - Search by email
-
-**Pages/Components:**
-- `/members` - Members list (librarian only)
-- `/members/:id` - Member detail page
-- `<MemberCard>` - Member display with stats
-
----
-
-## 9. 🎨 UI/UX Requirements
-
-### General
-- [ ] Responsive design (mobile, tablet, desktop)
-- [ ] Loading states for all async operations
-- [ ] Error boundaries for graceful error handling
-- [ ] Toast notifications for actions (success/error)
-- [ ] Consistent color scheme and typography
-- [ ] Accessible (WCAG 2.1 AA compliance)
-- [ ] Dark mode support (optional)
-
-### Navigation
-- [ ] Persistent navigation bar with role-based menu items
-- [ ] Active page indicator
-- [ ] User profile dropdown with sign out
-- [ ] Mobile hamburger menu
-
-### Performance
-- [ ] Optimistic updates for better UX
-- [ ] Debounced search input
-- [ ] Cached API responses (React Query)
-- [ ] Lazy loading for routes
-- [ ] Image optimization
-
-**Components:**
-- `<Layout>` - Main layout wrapper
-- `<Navbar>` - Navigation bar
-- `<Sidebar>` - Side navigation (optional)
-- `<Toast>` - Notification system
-- `<LoadingSpinner>` - Loading indicator
-- `<ErrorBoundary>` - Error handler
-
----
-
-## 10. 🧪 Testing Requirements
-
-### Unit Tests
-- [ ] Test all utility functions
-- [ ] Test custom hooks
-- [ ] Test form validation logic
-
-### Component Tests
-- [ ] Test component rendering
-- [ ] Test user interactions
-- [ ] Test conditional rendering based on props
-
-### Integration Tests
-- [ ] Test authentication flow
-- [ ] Test book borrowing flow
-- [ ] Test book management flow
-- [ ] Test API integration with mock server
-
-**Testing Tools:**
-- Vitest for unit tests
-- React Testing Library for component tests
-- MSW (Mock Service Worker) for API mocking
-
----
-
-## Summary
-
-**Total User Stories:** 10 major features
-**Total Pages:** ~15 pages
-**Total Components:** ~40+ reusable components
-**Roles:** 2 (Member, Librarian)
-**API Integration:** Full integration with Rails backend
-
-**Priority Order:**
-1. Authentication (foundation)
-2. Book browsing (core feature)
-3. Member borrowing (core feature)
-4. Member dashboard (user value)
-5. Librarian dashboard (admin value)
-6. Book management (admin feature)
-7. Borrowing management (admin feature)
-8. User management (nice-to-have)
-9. UI/UX polish (ongoing)
-10. Testing (ongoing)
