@@ -16,6 +16,7 @@ export function useBooks(params?: BooksQueryParams) {
   return useQuery({
     queryKey: booksKeys.list(params),
     queryFn: () => booksApi.getBooks(params),
+    staleTime: 0, // Always refetch when params change
   })
 }
 

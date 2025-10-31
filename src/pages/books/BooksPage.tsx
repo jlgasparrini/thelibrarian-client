@@ -27,7 +27,7 @@ export function BooksPage() {
   const page = Number(searchParams.get('page')) || 1
   const perPage = Number(searchParams.get('per_page')) || 25
 
-  // Fetch books - don't send available param to API, we'll filter client-side
+  // Fetch books
   const { data, isLoading, isError, error } = useBooks({
     query: query || undefined,
     genre: genre || undefined,
