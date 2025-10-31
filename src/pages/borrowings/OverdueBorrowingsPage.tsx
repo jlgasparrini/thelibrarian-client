@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
-import { BorrowingCard } from '@/components/borrowings/BorrowingCard'
-import { EmptyState } from '@/components/ui/EmptyState'
 import { toast } from 'sonner'
 import { AlertCircle } from 'lucide-react'
 import { getErrorMessage } from '@/lib/utils'
