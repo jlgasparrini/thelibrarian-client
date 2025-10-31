@@ -45,7 +45,6 @@ export const ROUTES = {
   BOOK_NEW: '/books/new',
   BOOK_EDIT: '/books/:id/edit',
   MY_BORROWINGS: '/my-borrowings',
-  MY_HISTORY: '/my-history',
   ALL_BORROWINGS: '/borrowings',
   OVERDUE_BORROWINGS: '/borrowings/overdue',
 } as const

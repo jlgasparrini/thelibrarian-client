@@ -2,7 +2,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useDashboard } from '@/hooks/useDashboard'
 import { StatCard } from '@/components/dashboard/StatCard'
 import { BorrowingCard } from '@/components/borrowings/BorrowingCard'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { DashboardSkeleton } from '@/components/ui/Skeleton'
 import { BookOpen, AlertCircle, Clock, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { formatDate, getStatusBadgeColor, getStatusText } from '@/lib/utils'
@@ -13,11 +13,7 @@ export function DashboardPage() {
   const { data, isLoading, isError } = useDashboard()
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center py-12">
-        <LoadingSpinner size="lg" />
-      </div>
-    )
+    return <DashboardSkeleton />
   }
 
   if (isError) {
@@ -107,7 +103,8 @@ export function DashboardPage() {
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </div>
-            <div className="overflow-x-auto">
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -157,6 +154,28 @@ export function DashboardPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+            {/* Mobile List */}
+            <div className="md:hidden space-y-3">
+              {librarianData.recent_borrowings.slice(0, 10).map((borrowing) => (
+                <div key={borrowing.id} className="border-b border-gray-200 pb-3 last:border-0">
+                  <Link
+                    to={`/books/${borrowing.book.id}`}
+                    className="font-medium text-gray-900 hover:text-blue-600 block"
+                  >
+                    {borrowing.book.title}
+                  </Link>
+                  <p className="text-sm text-gray-600 mt-1">{borrowing.user.email}</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-xs text-gray-500">
+                      {formatDate(borrowing.borrowed_at)} → {formatDate(borrowing.due_date)}
+                    </span>
+                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${getStatusBadgeColor(borrowing)}`}>
+                      {getStatusText(borrowing)}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -236,46 +255,6 @@ export function DashboardPage() {
             </div>
           )}
         </div>
-
-        {/* Quick Actions */}
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Link
-              to="/books/new"
-              className="flex items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors"
-            >
-              <div>
-                <BookOpen className="mx-auto h-8 w-8 text-gray-400" />
-                <span className="mt-2 block text-sm font-medium text-gray-900">
-                  Add New Book
-                </span>
-              </div>
-            </Link>
-            <Link
-              to="/books"
-              className="flex items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors"
-            >
-              <div>
-                <BookOpen className="mx-auto h-8 w-8 text-gray-400" />
-                <span className="mt-2 block text-sm font-medium text-gray-900">
-                  Manage Books
-                </span>
-              </div>
-            </Link>
-            <Link
-              to="/borrowings"
-              className="flex items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors"
-            >
-              <div>
-                <Clock className="mx-auto h-8 w-8 text-gray-400" />
-                <span className="mt-2 block text-sm font-medium text-gray-900">
-                  All Borrowings
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
       </div>
     )
   }
@@ -336,46 +315,6 @@ export function DashboardPage() {
           </div>
         </div>
       )}
-
-      {/* Quick Actions */}
-      <div className="rounded-lg bg-white p-6 shadow">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Link
-            to="/books"
-            className="flex items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors"
-          >
-            <div>
-              <BookOpen className="mx-auto h-8 w-8 text-gray-400" />
-              <span className="mt-2 block text-sm font-medium text-gray-900">
-                Browse Books
-              </span>
-            </div>
-          </Link>
-          <Link
-            to="/my-borrowings"
-            className="flex items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors"
-          >
-            <div>
-              <Clock className="mx-auto h-8 w-8 text-gray-400" />
-              <span className="mt-2 block text-sm font-medium text-gray-900">
-                My Borrowings
-              </span>
-            </div>
-          </Link>
-          <Link
-            to="/my-history"
-            className="flex items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors"
-          >
-            <div>
-              <AlertCircle className="mx-auto h-8 w-8 text-gray-400" />
-              <span className="mt-2 block text-sm font-medium text-gray-900">
-                Borrowing History
-              </span>
-            </div>
-          </Link>
-        </div>
-      </div>
     </div>
   )
 }

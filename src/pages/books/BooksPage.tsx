@@ -5,10 +5,12 @@ import { SearchBar } from '@/components/books/SearchBar'
 import { FilterPanel } from '@/components/books/FilterPanel'
 import { BookCard } from '@/components/books/BookCard'
 import { Pagination } from '@/components/ui/Pagination'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { BooksGridSkeleton } from '@/components/ui/Skeleton'
+import { EmptyState } from '@/components/ui/EmptyState'
 import { toast } from 'sonner'
-import { Plus } from 'lucide-react'
+import { Plus, BookOpen } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
+import { getErrorMessage } from '@/lib/utils'
 
 export function BooksPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -84,8 +86,8 @@ export function BooksPage() {
     try {
       await borrowMutation.mutateAsync({ book_id: bookId })
       toast.success('Book borrowed successfully!')
-    } catch {
-      toast.error('Failed to borrow book. Please try again.')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 
@@ -149,13 +151,23 @@ export function BooksPage() {
         {/* Books grid */}
         <div className="lg:col-span-3">
           {isLoading ? (
-            <div className="flex justify-center py-12">
-              <LoadingSpinner size="lg" />
-            </div>
+            <BooksGridSkeleton count={perPage > 12 ? 12 : perPage} />
           ) : data?.books.length === 0 ? (
-            <div className="rounded-lg bg-gray-50 p-12 text-center">
-              <p className="text-gray-600">No books found. Try adjusting your filters.</p>
-            </div>
+            <EmptyState
+              icon={BookOpen}
+              title="No books found"
+              description="Try adjusting your search or filters to find what you're looking for."
+              action={
+                query || genre || available !== undefined ? (
+                  <button
+                    onClick={handleClearFilters}
+                    className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                  >
+                    Clear filters
+                  </button>
+                ) : undefined
+              }
+            />
           ) : (
             <>
               <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

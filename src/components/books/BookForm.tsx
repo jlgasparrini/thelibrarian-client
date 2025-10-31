@@ -51,7 +51,11 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
           {...register('title')}
           type="text"
           id="title"
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
+            errors.title
+              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          }`}
         />
         {errors.title && (
           <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
@@ -67,7 +71,11 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
           {...register('author')}
           type="text"
           id="author"
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
+            errors.author
+              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          }`}
         />
         {errors.author && (
           <p className="mt-1 text-sm text-red-600">{errors.author.message}</p>
@@ -82,7 +90,11 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
         <select
           {...register('genre')}
           id="genre"
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
+            errors.genre
+              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          }`}
         >
           <option value="">Select a genre</option>
           {GENRES.map((genre) => (
@@ -106,7 +118,11 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
           type="text"
           id="isbn"
           placeholder="10 or 13 digits"
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
+            errors.isbn
+              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          }`}
         />
         {errors.isbn && (
           <p className="mt-1 text-sm text-red-600">{errors.isbn.message}</p>
@@ -123,7 +139,11 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
           type="number"
           id="total_copies"
           min="0"
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
+            errors.total_copies
+              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          }`}
         />
         {errors.total_copies && (
           <p className="mt-1 text-sm text-red-600">{errors.total_copies.message}</p>
@@ -141,7 +161,11 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
           id="available_copies"
           min="0"
           max={totalCopies}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-1 ${
+            errors.available_copies
+              ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          }`}
         />
         {errors.available_copies && (
           <p className="mt-1 text-sm text-red-600">{errors.available_copies.message}</p>

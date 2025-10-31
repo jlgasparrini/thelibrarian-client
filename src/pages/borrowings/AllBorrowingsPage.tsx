@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { TableSkeleton } from '@/components/ui/Skeleton'
+import { EmptyState } from '@/components/ui/EmptyState'
 import { Pagination } from '@/components/ui/Pagination'
 import { toast } from 'sonner'
-import { Search, X, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
-import { formatDate, getStatusBadgeColor, getStatusText, getDaysUntilDue } from '@/lib/utils'
+import { Search, X, ArrowUpDown, ArrowUp, ArrowDown, BookOpen } from 'lucide-react'
+import { formatDate, getStatusBadgeColor, getStatusText, getDaysUntilDue, getErrorMessage } from '@/lib/utils'
 
 type StatusFilter = 'all' | 'active' | 'returned' | 'overdue'
 type SortField = 'member' | 'book' | 'borrowed' | 'due' | 'status'
@@ -88,8 +89,8 @@ export function AllBorrowingsPage() {
     try {
       await returnMutation.mutateAsync(borrowingId)
       toast.success('Book returned successfully!')
-    } catch {
-      toast.error('Failed to return book. Please try again.')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 
@@ -236,22 +237,34 @@ export function AllBorrowingsPage() {
 
       {/* Content */}
       {isLoading ? (
-        <div className="flex justify-center py-12">
-          <LoadingSpinner size="lg" />
-        </div>
+        <TableSkeleton rows={perPage > 10 ? 10 : perPage} columns={6} />
       ) : paginatedBorrowings.length === 0 ? (
-        <div className="rounded-lg bg-gray-50 p-12 text-center">
-          <h3 className="text-lg font-medium text-gray-900">No borrowings found</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            {searchQuery
-              ? 'Try adjusting your search query'
-              : 'No borrowings match the selected filter'}
-          </p>
-        </div>
+        <EmptyState
+          icon={BookOpen}
+          title="No borrowings found"
+          description={
+            searchQuery
+              ? 'Try adjusting your search query or filters'
+              : 'No borrowings match the selected filter'
+          }
+          action={
+            searchQuery || statusFilter !== 'all' ? (
+              <button
+                onClick={() => {
+                  setSearchQuery('')
+                  setSearchParams({})
+                }}
+                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              >
+                Clear filters
+              </button>
+            ) : undefined
+          }
+        />
       ) : (
         <>
-          {/* Table */}
-          <div className="overflow-hidden rounded-lg bg-white shadow">
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-hidden rounded-lg bg-white shadow">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -381,6 +394,69 @@ export function AllBorrowingsPage() {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden space-y-4">
+            {paginatedBorrowings.map((borrowing) => {
+              const daysUntilDue = getDaysUntilDue(borrowing.due_date)
+              const isOverdue = borrowing['overdue?']
+              const isReturned = !!borrowing.returned_at
+
+              return (
+                <div key={borrowing.id} className="rounded-lg bg-white p-4 shadow">
+                  <div className="space-y-3">
+                    <div>
+                      <Link
+                        to={`/books/${borrowing.book.id}`}
+                        className="font-medium text-gray-900 hover:text-blue-600"
+                      >
+                        {borrowing.book.title}
+                      </Link>
+                      <p className="text-sm text-gray-500">{borrowing.book.author}</p>
+                    </div>
+                    
+                    <div className="text-sm">
+                      <span className="text-gray-500">Member: </span>
+                      <span className="text-gray-900">{borrowing.user.email}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm">
+                      <div>
+                        <div className="text-gray-500">Borrowed</div>
+                        <div className="text-gray-900">{formatDate(borrowing.borrowed_at)}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-gray-500">Due Date</div>
+                        <div className="text-gray-900">{formatDate(borrowing.due_date)}</div>
+                        {!isReturned && (
+                          <div className={`text-xs ${isOverdue ? 'text-red-600' : 'text-gray-500'}`}>
+                            {isOverdue
+                              ? `${Math.abs(daysUntilDue)} days overdue`
+                              : `${daysUntilDue} days remaining`}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadgeColor(borrowing)}`}>
+                        {getStatusText(borrowing)}
+                      </span>
+                      {!isReturned && (
+                        <button
+                          onClick={() => handleReturn(borrowing.id)}
+                          disabled={returnMutation.isPending}
+                          className="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          Return
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
           </div>
 
           {/* Pagination */}

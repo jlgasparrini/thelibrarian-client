@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
 import { BorrowingCard } from '@/components/borrowings/BorrowingCard'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { EmptyState } from '@/components/ui/EmptyState'
+import { BorrowingCardSkeleton } from '@/components/ui/BorrowingCardSkeleton'
 import { toast } from 'sonner'
 import { BookOpen } from 'lucide-react'
+import { getErrorMessage } from '@/lib/utils'
+import { Link } from 'react-router-dom'
 
 type TabType = 'active' | 'all'
 
@@ -20,8 +23,8 @@ export function MyBorrowingsPage() {
     try {
       await returnMutation.mutateAsync(borrowingId)
       toast.success('Book returned successfully!')
-    } catch {
-      toast.error('Failed to return book. Please try again.')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 
@@ -87,21 +90,31 @@ export function MyBorrowingsPage() {
 
       {/* Content */}
       {isLoading ? (
-        <div className="flex justify-center py-12">
-          <LoadingSpinner size="lg" />
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <BorrowingCardSkeleton key={i} />
+          ))}
         </div>
       ) : displayedBorrowings.length === 0 ? (
-        <div className="rounded-lg bg-gray-50 p-12 text-center">
-          <BookOpen className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-4 text-lg font-medium text-gray-900">
-            {activeTab === 'active' ? 'No active borrowings' : 'No borrowings yet'}
-          </h3>
-          <p className="mt-2 text-sm text-gray-600">
-            {activeTab === 'active'
-              ? 'You don\'t have any books currently borrowed.'
-              : 'You haven\'t borrowed any books yet. Visit the books page to get started!'}
-          </p>
-        </div>
+        <EmptyState
+          icon={BookOpen}
+          title={activeTab === 'active' ? 'No active borrowings' : 'No borrowings yet'}
+          description={
+            activeTab === 'active'
+              ? "You don't have any books currently borrowed."
+              : "You haven't borrowed any books yet. Visit the books page to get started!"
+          }
+          action={
+            activeTab !== 'active' ? (
+              <Link
+                to="/books"
+                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              >
+                Browse Books
+              </Link>
+            ) : undefined
+          }
+        />
       ) : (
         <div className="space-y-4">
           {displayedBorrowings.map((borrowing) => (

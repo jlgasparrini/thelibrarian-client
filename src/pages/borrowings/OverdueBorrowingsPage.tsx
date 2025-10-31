@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useBorrowings, useReturnBook } from '@/hooks/useBorrowings'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { toast } from 'sonner'
 import { AlertCircle, ArrowLeft } from 'lucide-react'
+import { getErrorMessage } from '@/lib/utils'
 import { formatDate, getDaysUntilDue } from '@/lib/utils'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 export function OverdueBorrowingsPage() {
   const { data, isLoading, isError, error } = useBorrowings()
@@ -17,8 +18,8 @@ export function OverdueBorrowingsPage() {
     try {
       await returnMutation.mutateAsync(borrowingId)
       toast.success('Book returned successfully!')
-    } catch {
-      toast.error('Failed to return book. Please try again.')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 

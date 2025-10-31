@@ -13,9 +13,10 @@ import { BookDetailPage } from './pages/books/BookDetailPage'
 import { CreateBookPage } from './pages/books/CreateBookPage'
 import { EditBookPage } from './pages/books/EditBookPage'
 import { MyBorrowingsPage } from './pages/borrowings/MyBorrowingsPage'
-import { MyHistoryPage } from './pages/borrowings/MyHistoryPage'
 import { AllBorrowingsPage } from './pages/borrowings/AllBorrowingsPage'
 import { OverdueBorrowingsPage } from './pages/borrowings/OverdueBorrowingsPage'
+import { NotFoundPage } from './pages/errors/NotFoundPage'
+import { ForbiddenPage } from './pages/errors/ForbiddenPage'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -100,16 +101,6 @@ function App() {
                 }
               />
               <Route
-                path="/my-history"
-                element={
-                  <ProtectedRoute requireRole="member">
-                    <MainLayout>
-                      <MyHistoryPage />
-                    </MainLayout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="/borrowings"
                 element={
                   <ProtectedRoute requireRole="librarian">
@@ -130,9 +121,12 @@ function App() {
                 }
               />
 
+              {/* Error pages */}
+              <Route path="/forbidden" element={<ForbiddenPage />} />
+              
               {/* Default redirect */}
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>

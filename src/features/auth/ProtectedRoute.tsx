@@ -24,7 +24,7 @@ export function ProtectedRoute({ children, requireRole }: ProtectedRouteProps) {
 
   // Check role if required
   if (requireRole && user?.role !== requireRole) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/forbidden" replace />
   }
 
   return <>{children}</>

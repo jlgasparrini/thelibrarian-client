@@ -29,7 +29,6 @@ export function Navbar() {
     { to: '/dashboard', label: 'Dashboard' },
     { to: '/books', label: 'Books' },
     { to: '/my-borrowings', label: 'My Borrowings' },
-    { to: '/my-history', label: 'My History' },
   ]
 
   const librarianLinks = [
@@ -57,7 +56,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop navigation */}
-            <div className="hidden sm:ml-8 sm:flex sm:space-x-4">
+            <div className="hidden md:ml-8 md:flex md:space-x-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
@@ -75,7 +74,7 @@ export function Navbar() {
           </div>
 
           {/* Desktop user menu */}
-          <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
+          <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
             <div className="flex items-center space-x-2 text-sm text-gray-700">
               <User className="h-4 w-4" />
               <span>{user?.email}</span>
@@ -93,7 +92,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center sm:hidden">
+          <div className="flex items-center md:hidden">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -113,7 +112,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden">
+        <div className="md:hidden">
           <div className="space-y-1 pb-3 pt-2">
             {navLinks.map((link) => (
               <Link
