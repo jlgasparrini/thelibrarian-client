@@ -16,7 +16,6 @@ export function BookForm({ initialData, onSubmit, onCancel, isSubmitting = false
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<BookFormData>({
     resolver: zodResolver(bookSchema),
     defaultValues: initialData
